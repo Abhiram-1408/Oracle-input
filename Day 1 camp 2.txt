@@ -1,0 +1,142 @@
+DATABASE
+-----------------------------------------------------------------------------------------------
+Database is an organised collection of interrelated data without harmful redundancy
+
+DBMS - Database Management System
+
+It is a software designed, retrieve, define and manage data in a Database
+
+Characteristics of a good database:
+ -- store any kind of data 
+ -- good backup and recovery 
+ -- multi user support
+ -- provides multiple views for different users in one organisation
+ -- DBMS follows the concept of normalization to minimize the redundancy of a relation
+ -- Simple query language to insert, retrieve, update and delete data
+
+DATA MODELS
+
+ -- it is a collection of tools for describing data and their relationship
+
+They are:
+  -- Object Based Logical Models
+
+
+	- ER Models
+		- based on entities and their attributes
+		- relationship among the entities
+		- entity : real world thing (Person, student, bank account etc)
+		- Mapping cardinalities - no. of association between entities
+			- one to one 
+			- one to many
+			- many to many
+			- many to one
+
+	- Object Oriented Models
+
+
+  -- Record Based Logical Models
+	- Relational Models
+	- Hierarchical Models
+	- Network Models
+  -- Physical Data Model
+
+Relational models  - values to relate records(to relate 2 or more data) 
+		     Concept of tables
+hierarchical models - data represented as trees hierarchy
+		      many to many relationship is not possible
+		      pointers are used to represent data
+Network Model - Data represented as graph
+		many to many relationship is possible
+
+
+
+RDBMS (Relational Database Management System)
+
+1970 -- Dr EF Codd 
+basis of RDBMS
+eg : MS SQL, My-SQL, IBM, DB2, Oracle
+
+RDBMS -- most commonly used 
+
+Data is represented as tuples(rows)
+
+primary key and foriegn key(PK and FK)
+terms:
+Relation : Table
+attributes : Columns
+domain : set of available values
+	 the type and range of values
+	 eg: stud_id => domain : integer values from 1-100
+tuple : a row
+cardinality : no. of rows
+degree : no. of columns
+
+Oracle  --- Not case sensitive
+--------------------------
+RDBMS
+-also called OracleDB
+-produced by Oracle Corporation
+- in 1977 by Lawrence Ellison and team 
+
+Database languages
+-------------------------------
+DDL (Data Definition Language) - define db structure
+
+Create
+Alter
+Drop - Delete a table
+Truncate - remove all records and keeping the structure
+Rename
+
+
+Data types
+
+char - fixed length 1 - 200
+varchar - variable length 1 - 4000
+number(p,s)
+	p = precision -- total no.of digits
+	s = scale -- no.of digits to the right of the decimal point
+date 
+long upto 2 GB
+
+Create a table 
+------------------------------------------------------------
+CREATE TABLE table_name 
+(
+	attribute datatype(size)
+);
+Alter
+----------------------------------
+
+1.Increase/decrease the length of a column
+2.To change the datatype of a column
+3.To add a column
+4.TO drop an existing column
+5.To change the column name
+
+---------------------------------------
+Constraints
+---------------------------------------
+
+-- used to specify rules for the data in the table 
+
+- not null
+- primary key
+- foreign key
+- unique
+- references
+- on delete cascade
+- on delete set null
+- check
+
+
+DML -- Data Manipulation Language
+
+- add data
+- modify/change data 
+- remove data
+
+INSERT 
+UPDATE -- updating the data
+DELETE -- delete specific rows 
