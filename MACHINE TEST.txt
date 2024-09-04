@@ -1,0 +1,167 @@
+CREATE TABLE AIRPORT(Airport_id number PRIMARY KEY, Airport_name varchar(100), Airport_tax number(2), Handling_charges number(4))
+
+CREATE TABLE AIRLINE(Airline_id number primary key, Airline_name varchar(100))
+
+CREATE TABLE NAME(Travel_id number primary key, Traveller_name varchar(100))
+
+CREATE TABLE travel_booking (
+    Booking_id NUMBER PRIMARY KEY,
+    Travel_id NUMBER,  -- Foreign key referencing NAME table
+    Place_of_departure NUMBER,  -- Foreign key referencing AIRPORT table
+    Destination NUMBER,  -- Foreign key referencing AIRPORT table
+    Airline_id NUMBER,  -- Foreign key referencing AIRLINE table
+    Travel_date DATE,
+    Time_of_travel TIMESTAMP,
+    Number_of_tickets NUMBER(3, 0),
+    Ticket_price NUMBER,
+    Extra_baggage_weight NUMBER,
+    Price_per_ticket NUMBER,  -- Will be populated by the trigger
+    CONSTRAINT fk_travel FOREIGN KEY (Travel_id) REFERENCES NAME(Travel_id),
+    CONSTRAINT fk_departure FOREIGN KEY (Place_of_departure) REFERENCES AIRPORT(Airport_id),
+    CONSTRAINT fk_destination FOREIGN KEY (Destination) REFERENCES AIRPORT(Airport_id),
+    CONSTRAINT fk_airline FOREIGN KEY (Airline_id) REFERENCES AIRLINE(Airline_id)
+);
+
+
+
+CREATE OR REPLACE TRIGGER trg_calculate_price_per_ticket
+BEFORE INSERT OR UPDATE ON travel_booking
+FOR EACH ROW
+BEGIN
+    SELECT (:NEW.Ticket_price +
+            (:NEW.Ticket_price * a.Airport_tax / 100) +
+            a.Handling_charges +
+            (:NEW.Extra_baggage_weight * 500))
+    INTO :NEW.Price_per_ticket
+    FROM AIRPORT a
+    WHERE a.Airport_id = :NEW.Place_of_departure;
+END;
+
+
+INSERT ALL 
+INTO AIRPORT VALUES (1,'Indira Gandhi Airport, Delhi',5,500)
+INTO AIRPORT VALUES (2,'Chhatrapati Shivaji Maharaj International Airport, Mumbai',8, 600)
+INTO AIRPORT VALUES (3,'Kempegowda International Airport, Bengaluru',6, 350)
+INTO AIRPORT VALUES (4,'Gaya Airport, Bihar',4, 250)
+INTO AIRPORT VALUES (5,'Chennai International Airport, Chennai',5.5, 400)
+INTO AIRPORT VALUES (6,'Kannur International Airport, Kannur',3, 200)
+select * from dual
+
+INSERT ALL
+into AIRLINE VALUES (1,'AIR INDIA')
+into AIRLINE VALUES (2,'VISTARA')
+into AIRLINE VALUES (3,'EMIRATES')
+into AIRLINE VALUES (4,'INDIGO')
+into AIRLINE VALUES (5,'SPICE JET')
+into AIRLINE VALUES (6,'QATAR AIRWAYS')
+select * from dual
+
+INSERT ALL
+into NAME VALUES (1,'ABHIRAM GOPAN')
+into NAME VALUES (2,'AJIL V SAJITH')
+into NAME VALUES (3,'NAVNEET REMANAND')
+into NAME VALUES (4,'ARJUN R')
+into NAME VALUES (5,'BIPIN SUNMY')
+into NAME VALUES (6,'ABHIRAM HARICHANDRAN')
+SELECT * FROM DUAL
+ 
+INSERT ALL
+    INTO travel_booking (Booking_id, Travel_id, Place_of_departure, Destination, Airline_id, Travel_date, Time_of_travel, Number_of_tickets, Ticket_price, Extra_baggage_weight)
+    VALUES (1, 1, 1, 2, 1, TO_DATE('12-09-2024', 'DD-MM-YYYY'), TO_TIMESTAMP('2024-09-12 03:00:00', 'YYYY-MM-DD HH24:MI:SS'), 1, 10000, 5)
+    
+    INTO travel_booking (Booking_id, Travel_id, Place_of_departure, Destination, Airline_id, Travel_date, Time_of_travel, Number_of_tickets, Ticket_price, Extra_baggage_weight)
+    VALUES (2, 2, 3, 4, 2, TO_DATE('04-09-2024', 'DD-MM-YYYY'), TO_TIMESTAMP('2024-09-04 14:00:00', 'YYYY-MM-DD HH24:MI:SS'), 2, 5000, 2)
+    
+    INTO travel_booking (Booking_id, Travel_id, Place_of_departure, Destination, Airline_id, Travel_date, Time_of_travel, Number_of_tickets, Ticket_price, Extra_baggage_weight)
+    VALUES (3, 3, 5, 3, 3, TO_DATE('04-09-2024', 'DD-MM-YYYY'), TO_TIMESTAMP('2024-09-04 21:00:00', 'YYYY-MM-DD HH24:MI:SS'), 4, 7000, 3)
+    
+    INTO travel_booking (Booking_id, Travel_id, Place_of_departure, Destination, Airline_id, Travel_date, Time_of_travel, Number_of_tickets, Ticket_price, Extra_baggage_weight)
+    VALUES (4, 4, 3, 1, 4, TO_DATE('05-09-2024', 'DD-MM-YYYY'), TO_TIMESTAMP('2024-09-05 03:00:00', 'YYYY-MM-DD HH24:MI:SS'), 5, 5500, 7)
+    
+    INTO travel_booking (Booking_id, Travel_id, Place_of_departure, Destination, Airline_id, Travel_date, Time_of_travel, Number_of_tickets, Ticket_price, Extra_baggage_weight)
+    VALUES (5, 5, 4, 3, 2, TO_DATE('09-09-2024', 'DD-MM-YYYY'), TO_TIMESTAMP('2024-09-09 03:00:00', 'YYYY-MM-DD HH24:MI:SS'), 1, 6000, 0)
+    
+    INTO travel_booking (Booking_id, Travel_id, Place_of_departure, Destination, Airline_id, Travel_date, Time_of_travel, Number_of_tickets, Ticket_price, Extra_baggage_weight)
+    VALUES (6, 5, 1, 6, 6, TO_DATE('08-09-2024', 'DD-MM-YYYY'), TO_TIMESTAMP('2024-09-08 05:00:00', 'YYYY-MM-DD HH24:MI:SS'), 1, 12000, 5)
+    
+    INTO travel_booking (Booking_id, Travel_id, Place_of_departure, Destination, Airline_id, Travel_date, Time_of_travel, Number_of_tickets, Ticket_price, Extra_baggage_weight)
+    VALUES (7, 6, 2, 5, 2, TO_DATE('14-09-2024', 'DD-MM-YYYY'), TO_TIMESTAMP('2024-09-14 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), 6, 15000, 4)
+    
+    INTO travel_booking (Booking_id, Travel_id, Place_of_departure, Destination, Airline_id, Travel_date, Time_of_travel, Number_of_tickets, Ticket_price, Extra_baggage_weight)
+    VALUES (8, 1, 1, 3, 1, TO_DATE('21-09-2024', 'DD-MM-YYYY'), TO_TIMESTAMP('2024-09-21 22:00:00', 'YYYY-MM-DD HH24:MI:SS'), 1, 4000, 2)
+
+SELECT * FROM dual;
+
+
+---------------1. List the list of Passengers and the date of journey who are travelling from Airport "IndiraGandhi Airport, Delhi"
+
+
+SELECT nb.Traveller_name, tb.Travel_date
+FROM travel_booking tb
+JOIN NAME nb ON tb.Travel_id = nb.Travel_id
+JOIN AIRPORT ap ON tb.Place_of_departure = ap.Airport_id
+WHERE ap.Airport_name = 'Indira Gandhi Airport, Delhi';
+
+---------------2. List the list of Passengers and the date of journey who are travelled previous day from airport "Trivandrum Int Airport"
+
+SELECT nb.Traveller_name, tb.Travel_date
+FROM travel_booking tb
+JOIN NAME nb ON tb.Travel_id = nb.Travel_id
+JOIN AIRPORT ap ON tb.Place_of_departure = ap.Airport_id
+WHERE ap.Airport_name = 'Chhatrapati Shivaji Maharaj International Airport, Mumbai'
+  AND tb.Travel_date = SYSDATE - 1;
+
+---------------3. Display the Airport Name where "Baggage Charge" is most high among all airports.
+
+SELECT ap.Airport_name
+FROM AIRPORT ap
+JOIN travel_booking tb ON ap.Airport_id = tb.Place_of_departure
+GROUP BY ap.Airport_name
+ORDER BY MAX(tb.Extra_baggage_weight * 500) DESC
+FETCH FIRST 1 ROWS ONLY;
+
+
+---------------4. find all passengers who are travelling from Airport "Kempegowda International Airport, Bengaluru'
+SELECT nb.Traveller_name, tb.Travel_date
+FROM travel_booking tb
+JOIN NAME nb ON tb.Travel_id = nb.Travel_id
+JOIN AIRPORT ap ON tb.Place_of_departure = ap.Airport_id
+WHERE ap.Airport_name = 'Kempegowda International Airport, Bengaluru';
+
+
+---------------5. find the number of passengers who are travelling from each Airport
+
+SELECT ap.Airport_name, COUNT(*) AS number_of_passengers
+FROM travel_booking tb
+JOIN AIRPORT ap ON tb.Place_of_departure = ap.Airport_id
+GROUP BY ap.Airport_name;
+
+
+---------------6.Display the list of Passengers and the date of journey who are travelling on next 2 days 
+
+SELECT nb.Traveller_name, tb.Travel_date
+FROM travel_booking tb
+JOIN NAME nb ON tb.Travel_id = nb.Travel_id
+WHERE tb.Travel_date BETWEEN SYSDATE + 1 AND SYSDATE + 2;
+
+
+---------------7. Display the list of Passengers who have booked more than one ticket for a travel. 
+
+SELECT nb.Traveller_name, tb.Travel_date
+FROM travel_booking tb
+JOIN NAME nb ON tb.Travel_id = nb.Travel_id
+GROUP BY nb.Traveller_name, tb.Travel_date
+HAVING SUM(tb.Number_of_tickets) > 1;
+
+
+
+---------------8. find all passengers who bought the expensive ticket in descending order
+
+
+SELECT nb.Traveller_name, tb.Ticket_price
+FROM travel_booking tb
+JOIN NAME nb ON tb.Travel_id = nb.Travel_id
+ORDER BY tb.Ticket_price DESC;
+
+
+select * from name
