@@ -1,0 +1,91 @@
+Day 3 camp 2
+
+FUNCTIONS
+---------------------------------------------------------------------------------------------
+
+set of predefined code
+types:
+
+
+single rows functions
+	- operate on single rows
+	- return only one result per row
+
+multiple rows functions:
+	- operate on multiple rows
+	- return one result per group of rows
+	- group functions or aggregate functions 
+
+AGGREGATE FUNCTIONS
+
+- COUNT()
+- AVG()
+- SUM()
+- MIN()
+- MAX()
+
+--- GROUP BY & HAVING
+
+GROUP BY:-
+
+this clause is used to group rows based on one or more columns
+
+HAVING:-
+
+since aggregate functions cannot be used directly in the where clause 
+WHERE works for filtering individual rows
+so we use HAVING 
+HAVING can filter in a group of rows
+
+
+SUBQUERIES
+
+WHY? 
+if a query needs to work based on the o/p of another query
+ie; the value feeding where the class is dynamic
+what?
+it is a query whose results are passed as the argument for another query 
+
+
+types----------------------------
+
+- single row subquery
+- multiple row subquery
+- multiple column subquery
+
+Oracle Database imposes no limit on the number of subquery levels in the FROM clause of the top-level query. You can nest up to 255 levels of subqueries in the WHERE clause.
+
+some of the most common places where the subqueries can be used 
+
+- WHERE
+- FROM
+- HAVING 
+- INSERT
+- UPDATE
+- DELETE
+- EXISTS
+- JOIN
+- IN
+- SELECT
+
+Using IN , ANY , ALL operators
+
+>ALL --- more than max(AND logical operator)
+<ALL --- less than the min
+<ANY --- less than the max(OR logical operator)
+>ANY --- more than the min
+
+============================================================================================
+CORRELATED SUBQUERY
+
+In a normal subqueries , the inner query works first and the result is applied for each row of the outer query
+
+ in correlated subquery, depends on the value of the outer query. It runs once for each query in the outer query
+
+SACLAR SUBQUERY
+
+that return a single column in the single row
+cannot be used for 
+- Default value for columns
+- check constraints
+GROUP BY and HAVING
