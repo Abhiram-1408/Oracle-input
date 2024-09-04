@@ -1,0 +1,97 @@
+Day 2 camp 2
+
+constraints
+- Not null
+- Primary key
+- Unique
+- Foreign Key
+- References
+- ON delete cascade
+- On delete set null
+- Check
+
+1. Unique
+
+	- to restrict duplicate values into columns
+	- to accept null values
+
+2. NOT NULL
+
+	- opposite of unique
+	- restricts the entry of null but allows duplicate values 
+
+3.CHECK 
+	- To check values user defined condition on a column 
+	- accepts duplicate but does not accept null
+	- SYNTAX : col_name datatype size CHECK condition
+
+4. PRIMARY KEY
+
+	- Will not accept null
+	- no duplicate values
+
+5. FOREIGN KEY
+
+	- Will not accept null
+	- will accept duplicate values
+
+6. ON DELETE CASCADE
+
+	- when a row in  the parent table is deleted, all the related rows in  the child table are automatically deleted as well.
+
+7. ON DELETE SET NULL
+
+	- when a row in the parent table is deleted, all the related foreign key values in the child table are set to 'NULL'. 
+
+==============================================================================================
+
+---- SELECT 
+
+- show all data 
+-  select needed data only(specific columns)
+- Distinct
+
+copy a table data into another table (second table should be having the same structure)
+
+
+--- OPERATORS
+
+--- ARITHEMATIC OPERATORS
+
++,-,*,/
+
+--- COMPARISION/ RELATIONAL OPERATORS
+
+=,<,>,<=,>=,<>,  BETWEEN...AND , IN, LIKE , IS NULL
+
+
+==============================================================================================
+
+---- JOINS 
+
+used to select data from multiple tables
+*  A join clause is used to combine rows from 2 or more tables , baes on a related column (common column ) between them
+why? 
+simple select can select only from a single table 
+
+
+GENERAL SYNTAX:
+
+SELECT FORM TABLE1.col, TABLE2.col
+FROM table1 join table2
+ON
+(table1.commoncol = table2.commoncol)
+
+-EQUI join
+-NON EQUI join
+- cross join
+- outer join
+	-left
+	-right
+	-full
+-self join
+
+
+-----SELF JOIN
+
+- To check the internal consistency of a table data
